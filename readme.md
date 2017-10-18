@@ -11,7 +11,9 @@ Your code changes go live as the code changes are saved.
 2. open the source folder in  Visual Studio Code
 3. make code changes
 4. download and run [botframework-emulator](https://emulator.botframework.com/)
-5. connect the emulator to http://localhost:3987
+5. connect the emulator to https://optimum-antuit.azurewebsites.net/api/messages
+6. make sure you you ngrok tunneling enabled on your local machine
+
 
 ### Publish back
 
