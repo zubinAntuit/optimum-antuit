@@ -46,8 +46,29 @@ console.log(recognizer)
 var intents = new builder.IntentDialog({ recognizers: [recognizer] })
     .matches('AddCard', [
         function(session, args, next) {
-            console.log("hello")
-            session.send("Looks Like your trying to add a string");
+
+            //Resolve and store any entities passed from LUIS
+
+            var listName = builder.EntityRecognizer.findEntity(args.entities, "ListName");
+
+            //Check if list name entered, otherwise prompt user
+            if (!listName) {
+                builder.Prompts.text(session, 'Which list would you like a card added?')
+            } else {
+                next({ response: listName.entity });
+            }
+
+            //The below is a simple way of doing what the user asks.
+            // var listName = builder.EntityRecognizer.findEntity(args.entities,"ListName");
+            // session.send(JSON.stringify(listName));
+
+            //Very Basic way of sending messages back
+            // session.send("Looks Like your trying to add a string");
+        },
+        function(session, results) {
+            if (results.response) {
+                session.send(JSON.stringify(results.response));
+            }
         }
     ])
     .onDefault((session) => {
